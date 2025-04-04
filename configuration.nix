@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 
+# Some options have already been set by Flake Inputs but the most important 
+# ones are refined here, just in case.
 {
   # === Build (Remove when copying to RPi) ===
 
@@ -39,9 +41,6 @@
 
 
   # === Kernel ===
-
-  # Get latest kernel from Nixpkgs
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Reduce CMA to improve stability, Default is 64M which is too much
   boot.kernelParams = ["cma=32M"];
