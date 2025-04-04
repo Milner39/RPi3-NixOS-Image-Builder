@@ -17,6 +17,7 @@
         # Makes the option: "sdImage"
         "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
 
+        # https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/3/default.nix
         "${nixos-hardware}/raspberry-pi/3"
 
         # My system config
