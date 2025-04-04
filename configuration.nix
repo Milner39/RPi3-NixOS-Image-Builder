@@ -40,15 +40,6 @@
 
 
 
-  # === Kernel ===
-
-  # Reduce CMA to improve stability, Default is 64M which is too much
-  boot.kernelParams = ["cma=32M"];
-
-  # === Kernel ===
-
-
-
   # === Hardware ===
 
   # Enable redistributable third-party firmware (drivers)
