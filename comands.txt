@@ -1,9 +1,7 @@
 Remember to cd to this dir in WSL first
 
 Generate img
-nixos-generate -f sd-aarch64 --flake .#default -o ./result
-or
-nix build -L .#nixosConfigurations.default.config.system.build.sdImage --impure
+nix build -L .#nixosConfigurations.default.config.system.build.sdImage -o ./result --impure
 
 Copy folder in symlink from WSL to windows
 sudo cp -r ./result/sd-image/ ./sd-image/

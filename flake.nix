@@ -11,6 +11,10 @@
       # Target architecture
       system = "aarch64-linux";
 
+      specialArgs = {
+        inherit sops-nix;
+      };
+
       modules = [
         # Generates SD card images (with extra aarch64 settings)
         # May want to swap to the base package and set up my own settings?
@@ -26,24 +30,7 @@
         ./configuration.nix
 
         # Handle encrypted secrets
-        sops-nix.nixosModules.sops
-        {
-          sops = {
-            # File to decrypt
-            defaultSopsFile = ./secrets/secrets.json;
-            defaultSopsFormat = "json";
-
-            # Path to private key paired to the public key used to encrypt
-            age.sshKeyPaths = ["~/.ssh/id_ed25519"];
-
-            # Define secrets
-            secrets = {
-              "ssh/keys" = {};
-              "wifi/ssid" = {};
-              "wifi/psk" = {};
-            };
-          };
-        }
+        ./secrets/secrets.nix
       ];
     };
   };

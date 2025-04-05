@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 let
   secrets = config.sops.secrets;
@@ -60,8 +60,8 @@ in
     wireless = {
       enable = true;
       networks = {
-        "${secrets."wifi/ssid"}" = {
-          psk = secrets."wifi/psk";
+        "${"wifi/ssid"}" = {
+          psk = "wifi/psk";
         };
       };
     };
@@ -97,7 +97,7 @@ in
 
     # Configure OpenSSH for this user
     openssh = {
-      authorizedKeys.keys = secrets."ssh/keys";
+      authorizedKeys.keys = ["ssh/keys"];
     };
   };
 
