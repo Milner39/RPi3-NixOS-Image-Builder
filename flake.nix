@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
@@ -21,7 +21,7 @@
         # https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/3/default.nix
         "${nixos-hardware}/raspberry-pi/3"
 
-        # My system config
+        # My image config
         ./configuration.nix
       ];
     };

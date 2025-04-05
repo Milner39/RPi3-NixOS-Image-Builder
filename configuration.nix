@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 
-# Some options have already been set by Flake Inputs but the most important 
-# ones are refined here, just in case.
+let
+  secrets = import ./secrets/default.nix;
+in
 {
   # === Build (Remove when copying to RPi) ===
 
@@ -42,25 +43,65 @@
 
   # === Hardware ===
 
-  # Enable redistributable third-party firmware (drivers)
+  # Enable third-party firmware (drivers)
   hardware.enableRedistributableFirmware = true;
 
   # === Hardware ===
 
 
 
-  # === File Systems ===
+  # === Networking ===
 
-  fileSystems = {
-    # No need to manually add "/boot/firmware" since using uboot
+  networking = {
+    hostName = "NixPi";
+    useDHCP = true;
 
-    "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
+    # Configure WiFi
+    wireless = {
+      enable = true;
+      networks = {
+        "${secrets.wifi.ssid}" = {
+          psk = secrets.wifi.psk;
+        };
+      };
     };
   };
 
-  # === File Systems ===
+  # OpenSSH options
+  services.sshd = {
+    enable = true;
+
+    # "settings" option does not exist error even though it exists in this file
+    # https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/modules/services/networking/ssh/sshd.nix#L442
+    # But it does not exist when searching in Nix options
+    # https://search.nixos.org/options?channel=24.11&show=services.sshd
+    # settings = {
+    #   # Do not allow password auth, only key-based
+    #   PasswordAuthentication = false;
+    # };
+  };
+
+  # === Networking ===
+
+
+
+  # === Users (edit this for your own setup) ===
+
+  users.users.finnm = {
+    # Automatically set various options like home directory etc.
+    # https://search.nixos.org/options?show=users.users.%3Cname%3E.isNormalUser
+    isNormalUser = true;
+
+    # Add to groups to elevate permissions
+    extraGroups = ["wheel"];
+
+    # Configure OpenSSH for this user
+    openssh = {
+      authorizedKeys = secrets.ssh.authorizedKeys;
+    };
+  };
+
+  # === Users ===
 
 
 
