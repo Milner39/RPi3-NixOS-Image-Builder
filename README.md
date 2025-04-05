@@ -13,7 +13,7 @@
 
 2.  Build the image with:
     ```bash
-    nix build -L .#nixosConfigurations.default.config.system.build.sdImage -o ./result --impure
+    nix build -L path:.#nixosConfigurations.default.config.system.build.sdImage -o ./result --impure
     ```
     Tip: If the command fails and you see "Killed" in the terminal output: you 
     are running out of memory and the process is being killed early.

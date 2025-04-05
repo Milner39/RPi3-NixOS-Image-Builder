@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   user = {
     username = "<YOUR_USERNAME>";
