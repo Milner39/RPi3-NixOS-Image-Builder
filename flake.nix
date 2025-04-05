@@ -2,9 +2,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware } @ inputs: {
+  outputs = { self, nixpkgs, nixos-hardware, sops-nix } @ inputs: {
     nixosConfigurations.default = nixpkgs.lib.nixosSystem {
 
       # Target architecture
@@ -23,6 +24,25 @@
 
         # My image config
         ./configuration.nix
+
+        # Handle encrypted secrets
+        sops-nix.nixosModules.sops
+        {
+          sops = {
+            # File to decrypt
+            defaultSopsFile = ./secrets/secrets.yaml;
+
+            # Path to private key paired to the public key used to encrypt
+            age.sshKeyPaths = ["~/.ssh/id_ed25519"];
+
+            # Define secrets
+            secrets = {
+              "ssh/keys" = {};
+              "wifi/ssid" = {};
+              "wifi/psk" = {};
+            };
+          };
+        }
       ];
     };
   };

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  secrets = import ./secrets/default.nix;
+  secrets = config.sops.secrets;
 in
 {
   # === Build (Remove when copying to RPi) ===
@@ -60,8 +60,8 @@ in
     wireless = {
       enable = true;
       networks = {
-        "${secrets.wifi.ssid}" = {
-          psk = secrets.wifi.psk;
+        "${secrets."wifi/ssid"}" = {
+          psk = secrets."wifi/psk";
         };
       };
     };
@@ -97,7 +97,7 @@ in
 
     # Configure OpenSSH for this user
     openssh = {
-      authorizedKeys = secrets.ssh.authorizedKeys;
+      authorizedKeys.keys = secrets."ssh/keys";
     };
   };
 
@@ -108,7 +108,7 @@ in
   # === Nix ===
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 
   # === Nix ===
 }
