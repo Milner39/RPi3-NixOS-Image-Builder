@@ -18,6 +18,7 @@ in
 
   # Disable compressing image file
   sdImage.compressImage = false;
+  sdImage.imageName = "NixPi.img";
 
   # === Build ===
 

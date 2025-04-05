@@ -4,5 +4,5 @@ secrets.nix
 
 # MISC
 result
+**.img
 commands.txt
-sd-image
