@@ -30,7 +30,7 @@
         {
           sops = {
             # File to decrypt
-            defaultSopsFile = ./secrets/secrets.yaml;
+            defaultSopsFile = ./secrets/secrets.json;
 
             # Path to private key paired to the public key used to encrypt
             age.sshKeyPaths = ["~/.ssh/id_ed25519"];
