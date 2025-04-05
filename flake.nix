@@ -31,6 +31,7 @@
           sops = {
             # File to decrypt
             defaultSopsFile = ./secrets/secrets.json;
+            defaultSopsFormat = "json";
 
             # Path to private key paired to the public key used to encrypt
             age.sshKeyPaths = ["~/.ssh/id_ed25519"];

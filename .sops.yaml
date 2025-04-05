@@ -1,8 +1,8 @@
 keys:
-  - &personal age1ez5jd5r7h90jqtkysmymac0twxvyugzhh3e2jdvzuqlhav5vsp0sgqrcsm
+  - &primary age1ez5jd5r7h90jqtkysmymac0twxvyugzhh3e2jdvzuqlhav5vsp0sgqrcsm
 
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini|sops)$
     key_groups:
       - age:
-        - *personal
+        - *primary
