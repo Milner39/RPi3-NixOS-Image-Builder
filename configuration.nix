@@ -1,7 +1,7 @@
-{ config, ... }:
+{ ... }:
 
 let
-  secrets = config.sops.secrets;
+  secrets = import ./secrets.nix;
 in
 {
   # === Build (Remove when copying to RPi) ===

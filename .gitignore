@@ -1,1 +1,7 @@
+# Semi-sensitive data that should not be pushed to github
+secrets.nix
+
+
+# MISC
+commands.txt
 sd-image

@@ -2,18 +2,13 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, sops-nix } @ inputs: {
+  outputs = { nixpkgs, ... } @ inputs: {
     nixosConfigurations.default = nixpkgs.lib.nixosSystem {
 
       # Target architecture
       system = "aarch64-linux";
-
-      specialArgs = {
-        inherit sops-nix;
-      };
 
       modules = [
         # Generates SD card images (with extra aarch64 settings)
@@ -24,13 +19,10 @@
 
         # Configures the kernel and bootloader
         # https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/3/default.nix
-        "${nixos-hardware}/raspberry-pi/3"
+        "${inputs.nixos-hardware}/raspberry-pi/3"
 
         # My image config
         ./configuration.nix
-
-        # Handle encrypted secrets
-        ./secrets/secrets.nix
       ];
     };
   };
