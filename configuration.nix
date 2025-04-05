@@ -60,8 +60,8 @@ in
     wireless = {
       enable = true;
       networks = {
-        "${"wifi/ssid"}" = {
-          psk = "wifi/psk";
+        "${secrets.wifi.ssid}" = {
+          psk = secrets.wifi.psk;
         };
       };
     };
@@ -97,7 +97,7 @@ in
 
     # Configure OpenSSH for this user
     openssh = {
-      authorizedKeys.keys = ["ssh/keys"];
+      authorizedKeys.keys = secrets.ssh.keys;
     };
   };
 
