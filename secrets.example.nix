@@ -1,14 +1,17 @@
 { ... }:
 
 {
-  ssh = {
-    keys = [
-      <YOUR_KEY1>
-      <YOUR_KEY2>
-    ];
+  user = {
+    username = "<YOUR_USERNAME>";
+    auth = {
+      hashedPassword = "<YOUR_HASHED_PASSWORD>";
+      sshKeys = [
+        <YOUR_KEY>
+      ];
+    };
   };
   wifi = {
     ssid = <YOUR_SSID>;
-    psk = <YOUR_PASS>;
+    psk = <YOUR_PASSWORD>;
   };
 }

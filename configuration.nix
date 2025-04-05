@@ -87,7 +87,7 @@ in
 
   # === Users (edit this for your own setup) ===
 
-  users.users.finnm = {
+  users.users."${secrets.user.username}" = {
     # Automatically set various options like home directory etc.
     # https://search.nixos.org/options?show=users.users.%3Cname%3E.isNormalUser
     isNormalUser = true;
@@ -95,10 +95,9 @@ in
     # Add to groups to elevate permissions
     extraGroups = ["wheel"];
 
-    # Configure OpenSSH for this user
-    openssh = {
-      authorizedKeys.keys = secrets.ssh.keys;
-    };
+    # Login Methods
+    hashedPassword = secrets.user.auth.hashedPassword;
+    openssh.authorizedKeys.keys = secrets.user.auth.sshKeys;
   };
 
   # === Users ===
