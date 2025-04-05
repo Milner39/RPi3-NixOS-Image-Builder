@@ -3,5 +3,6 @@ secrets.nix
 
 
 # MISC
+result
 commands.txt
 sd-image
