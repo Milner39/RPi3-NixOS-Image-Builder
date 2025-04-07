@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 let
   secrets = import ./secrets.nix;
@@ -26,17 +26,8 @@ in
 
   # === Bootloader ===
 
-  boot.loader = {
-    # Disable default bootloader
-    grub.enable = false;
-
-    # Use RPi compatible bootloader
-    generic-extlinux-compatible.enable = true;
-
-
-    # Wait 3 seconds before booting
-    timeout = 3;
-  };
+  # Wait 3 seconds before booting
+  boot.loader.timeout = 3;
 
   # === Bootloader ===
 
@@ -48,6 +39,19 @@ in
   hardware.enableRedistributableFirmware = true;
 
   # === Hardware ===
+
+
+
+  # === Performance ===
+
+  # Use RAM as compressed Swap space
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+  };
+
+  # === Performance ===
 
 
 
@@ -111,4 +115,15 @@ in
   system.stateVersion = "24.11";
 
   # === Nix ===
+
+
+
+  # === Environment ===
+
+  # Add globally available packages
+  environment.systemPackages = with pkgs; [
+    git
+  ];
+
+  # === Environment ===
 }
