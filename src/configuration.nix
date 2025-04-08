@@ -122,8 +122,12 @@ in
 
   # Add globally available packages
   environment.systemPackages = with pkgs; [
+    # Version control
     git
+
+    # Secrets
     sops
+    ssh-to-age
   ];
 
   # === Environment ===
