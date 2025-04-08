@@ -123,6 +123,7 @@ in
   # Add globally available packages
   environment.systemPackages = with pkgs; [
     git
+    sops
   ];
 
   # === Environment ===
